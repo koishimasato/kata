@@ -2,6 +2,7 @@ package kata.ex01;
 
 import kata.ex01.model.Driver;
 import kata.ex01.model.HighwayDrive;
+import kata.ex01.model.MoterWayType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -107,5 +108,20 @@ public class DiscountServiceTest {
 
         assertThat(discountService.calc(drive)).isEqualTo(30);
     }
+
+    @Test
+    public void testETC20割引が適用される() {
+        HighwayDrive drive = new HighwayDrive();
+        drive.setEnteredAt(LocalDateTime.of(2019, 11, 21, 10, 0));
+        drive.setExitedAt(LocalDateTime.of(2019, 11, 21, 11, 30));
+        drive.setDriver(driver(10));
+        drive.setVehicleFamily(STANDARD);
+        drive.setRouteType(RURAL);
+        drive.setEtcVersion(2);
+        drive.setMotorwayType(MoterWayType.KENODO);
+
+        assertThat(discountService.calc(drive)).isEqualTo(20);
+    }
+
 
 }
