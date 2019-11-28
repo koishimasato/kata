@@ -2,6 +2,7 @@ package kata.ex01.rule;
 
 import kata.ex01.model.HighwayDrive;
 import kata.ex01.model.RouteType;
+import kata.ex01.util.HolidayUtils;
 
 import java.time.DayOfWeek;
 import java.util.Arrays;
@@ -23,6 +24,9 @@ public class WeekEndRule implements Rule {
         // 土曜・日曜・祝日
         var weekEnds = new DayOfWeek[]{DayOfWeek.SATURDAY, DayOfWeek.SUNDAY};
         return Arrays.asList(weekEnds).contains(drive.getEnteredAt().getDayOfWeek()) ||
-               Arrays.asList(weekEnds).contains(drive.getExitedAt().getDayOfWeek());
+               Arrays.asList(weekEnds).contains(drive.getExitedAt().getDayOfWeek()) ||
+                HolidayUtils.isHoliday(drive.getEnteredAt().toLocalDate()) ||
+                HolidayUtils.isHoliday(drive.getExitedAt().toLocalDate());
+
     }
 }

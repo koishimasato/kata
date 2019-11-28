@@ -96,5 +96,16 @@ public class DiscountServiceTest {
         assertThat(discountService.calc(drive)).isEqualTo(30);
     }
 
+    @Test
+    public void test祝日割引が適用される() {
+        HighwayDrive drive = new HighwayDrive();
+        drive.setEnteredAt(LocalDateTime.of(2019, 11, 23, 10, 0));
+        drive.setExitedAt(LocalDateTime.of(2019, 11, 23, 11, 30));
+        drive.setDriver(driver(10));
+        drive.setVehicleFamily(STANDARD);
+        drive.setRouteType(RURAL);
+
+        assertThat(discountService.calc(drive)).isEqualTo(30);
+    }
 
 }
